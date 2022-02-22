@@ -1,55 +1,67 @@
-// HW 7 DRINKS_HASH_FUNC
-function HashStorageFunc() {
-   var obj = {};
-   this.addValue = function (key, result) {
-      obj[key] = result;
-   };
-   this.getValue = function (key) {
-      if (key in obj) {
-         return obj[key];
+// HW 19 HashStorageClass
+const button1 = document.getElementsByTagName('button')[0];
+const button2 = document.getElementsByTagName('button')[1];
+const button3 = document.getElementsByTagName('button')[2];
+const button4 = document.getElementsByTagName('button')[3];
+
+function marginBottom() {
+   button1.style.marginBottom = '10px';
+   button2.style.marginBottom = '10px';
+   button3.style.marginBottom = '10px';
+   button4.style.marginBottom = '10px';
+}
+marginBottom()
+class HashStorageClass {
+   constructor() {
+      this._drinkStorageFull = {};
+   }
+   addValue(key, value) {
+      this._drinkStorageFull[key] = value;
+   }
+   getValue(key) {
+      if (key in this._drinkStorageFull) {
+         return this._drinkStorageFull[key];
       } else {
          return 'Напитка нет в меню';
       }
-      console.log(obj[key]);
-   };
-   this.deletValue = function (key) {
-      if (key in obj) {
-         console.log(obj[key])
-         delete obj[key];
-         return "Напиток " + key + " удалён из меню!";
+   }
+   deleteValue(key) {
+      if (key in this._drinkStorageFull) {
+         delete this._drinkStorageFull[key];
+         return 'Напиток удален из меню!'
       } else {
-         return "Напитка нет в меню!";
+         return 'Напитка нет в меню!'
       }
-   };
-   this.getKeys = function () {
-      var resultKey = [];
-      for (key in obj) {
-         resultKey.push(key);
+   }
+   getKeys() {
+      let keysAll = [];
+      for (let key in this._drinkStorageFull) {
+         keysAll.push(key)
       }
-      return 'В меню присутствуют напитки: ' + resultKey + ',';
-   };
+      return `В меню присутствуют напитки: 
+      ${keysAll} 
+      `;
+   }
 };
-var drinkStorage = new HashStorageFunc();
-// console.log(drinkStorage);
-function getResultaddValue() {
-   var name = prompt("Введите название напитка");
-   var isAlc = prompt("Он алкогольный?");
-   var structure = prompt("Способ приготовления");
-   var result = "Напиток - " + name + ",  алкогольный: " + isAlc + ", способ приготовления: " + structure + '.';
-   drinkStorage.addValue(name, result);
+var drinkStorage = new HashStorageClass();
 
-};
-
-function getResultgetValue() {
-   var name = prompt("Введите искомое значение");
+button1.addEventListener('click', function getResultAddValue() {
+   let name = prompt('Введите название напитка');
+   let isAlc = prompt('Он алкогольный?');
+   let structure = prompt('Cпособ приготовления');
+   let result = 'Напиток - ' + name + ',  алкогольный: ' + isAlc + ', способ приготовления: ' + structure + '.';
+   return drinkStorage.addValue(name, result)
+});
+button2.addEventListener('click', function getResult() {
+   let name = prompt('Введите название напитка');
    alert(drinkStorage.getValue(name));
+});
+button3.addEventListener('click', function () {
+   let name = prompt('Введите напиток, который зотите удалить из меню!');
+   alert(drinkStorage.deleteValue(name));
+})
 
-};
-function getResultdeletValue() {
-   var name = prompt("Введите удаляемое значение");
-   alert(drinkStorage.deletValue(name));
+button4.addEventListener('click', function () {
+   alert(drinkStorage.getKeys())
+})
 
-};
-function getResultgetKeys() {
-   alert(drinkStorage.getKeys());
-}
